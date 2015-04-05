@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="model.TransientCompany" table="shops">
+        <id name="id" column="id">
+            <generator class="native"></generator>
+        </id>
+        <property name="address" type="string"></property>
+        <property name="businesses" type="string"></property>
+        <property name="businessLicense" column="business_license" type="string"></property>
+        <property name="businessLicenseIssueDate" column="business_license_allocation_date" type="string"></property>
+        <property name="director" column="seller_name" type="string"></property>
+        <property name="name" column="shop_name" type="string"></property>
+        <property name="operationDate" column="operation_date" type="string"></property>
+        <property name="phone" column="phone" type="string"></property>
+        <property name="taxCode" column="tax_code" type="string"></property>
+        <property name="transactionName" column="transaction_name" type="string"></property>
+        <property name="type" column="type" type="int"></property>
+    </class>
+</hibernate-mapping>
