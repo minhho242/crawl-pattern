@@ -1,41 +1,38 @@
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
-import model.Company;
-import model.CrawlEngine;
-import model.TransientCompany;
+import hosocongty.Company;
+import hosocongty.CompanyDTO;
+import hosocongty.CrawlEngine;
 import org.apache.log4j.PropertyConfigurator;
 import org.hibernate.Session;
 import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import util.HibernateUtils;
-import util.Utils;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.lang.System.exit;
-
 /**
  * Description
  *
- * @author minhho242 on 2/14/15.
+ * @author minhho242 on 4/11/15.
  */
-public class Main implements Runnable {
+public class HoSoCongTyMain implements Runnable {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(Main.class);
+
+    private static Logger LOGGER = LoggerFactory.getLogger(HoSoCongTyMain.class);
     private static CrawlEngine crawlEngine = new CrawlEngine();
 
-    public static void main(String[] args) throws IOException, IllegalAccessException, InstantiationException {
+    public static void mainTemp(String[] args) throws IOException, IllegalAccessException, InstantiationException {
         _loadLog4jConfig();
         int threadNo = _getThreadNo();
 
         List<Thread> threads = new ArrayList<Thread>();
 
         for (int i = 0; i < threadNo; i++) {
-            Main main = new Main();
+            HoSoCongTyMain main = new HoSoCongTyMain();
             Thread t = new Thread(main);
             t.start();
 
@@ -51,7 +48,7 @@ public class Main implements Runnable {
         }
         HibernateUtils.getSessionFactory().close();
     }
-    
+
     private static int _getThreadNo() {
         int defaultThreadNo = 5;
         try {
@@ -68,7 +65,7 @@ public class Main implements Runnable {
                 session.beginTransaction();
                 Company comp = crawlEngine.next();
 
-                TransientCompany transientCompany = new TransientCompany(comp);
+                CompanyDTO transientCompany = new CompanyDTO(comp);
 
                 LOGGER.info(transientCompany.getName());
 

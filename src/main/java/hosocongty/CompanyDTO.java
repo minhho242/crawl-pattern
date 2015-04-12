@@ -1,13 +1,13 @@
-package model;
+package hosocongty;
 
 /**
  * Description
  *
  * @author minhho242 on 3/26/15.
  */
-public class TransientCompany {
+public class CompanyDTO {
     
-    public TransientCompany(Company company) {
+    public CompanyDTO(Company company) {
         director = company.getDirector().getValue();
         name = company.getName().getValue();
         address = company.getAddress().getValue();
@@ -23,7 +23,7 @@ public class TransientCompany {
     
     private Long id;
 
-    public TransientCompany() {
+    public CompanyDTO() {
     }
 
     public Long getId() {

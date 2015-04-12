@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="hopamchuan.SongDTO" table="songs">
+        <id name="id" column="id">
+            <generator class="native"></generator>
+        </id>
+        <property name="composer" type="string"></property>
+        <property name="createdTime" type="long" column="created_time"></property>
+        <property name="name" type="string"></property>
+        <property name="singer" type="string"></property>
+        <property name="lyric" type="string"></property>
+        <property name="rhythm" type="string"></property>
+        <property name="musicSource" type="string" column="music_source"></property>
+        <property name="sourceSongId" type="string" column="source_song_id"></property>
+    </class>
+</hibernate-mapping>

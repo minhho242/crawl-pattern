@@ -1,6 +1,7 @@
-package model;
+package hosocongty;
 
-import org.apache.commons.lang3.StringUtils;
+import model.Item;
+import model.Webbot;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import util.HoSoCongTyUtils;
@@ -28,7 +29,7 @@ public class Company {
         for (Field field : fields) {
             try {
                 Object temp = field.get(company);
-                if ( temp instanceof Item ) {
+                if ( temp instanceof Item) {
                     Item item = (Item)temp;
                     String value = item.extractValue(document);
                     item.setValue(value);

@@ -1,5 +1,6 @@
-package model;
+package hosocongty;
 
+import model.Webbot;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
