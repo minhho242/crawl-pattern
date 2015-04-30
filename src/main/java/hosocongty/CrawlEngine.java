@@ -1,6 +1,7 @@
 package hosocongty;
 
 import model.Webbot;
+import model.WebbotUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -20,12 +21,13 @@ public class CrawlEngine implements Iterator<Company> {
     
     private static final Logger LOGGER = LoggerFactory.getLogger(CrawlEngine.class);
 
-    protected String URL = "http://www.hosocongty.vn";
-    protected String BASE_URL = "http://www.hosocongty.vn";
-    protected String pageParam = "curpage";
+    protected String DOMAIN = "http://www.hosocongty.vn";
+    protected String URL = "http://www.hosocongty.vn/search.php?ot=0&p=0";
+    protected String BASE_URL = "http://www.hosocongty.vn/search.php?ot=0&p=0";
+    protected String _pageParam = "curpage";
 
-    private int currentPage = 1;
-    private Elements itemLinks;
+    private int _currentPage = 1;
+    private Elements _itemLinks;
     Iterator<Element> _iterator;
     
     public CrawlEngine() {
@@ -46,7 +48,7 @@ public class CrawlEngine implements Iterator<Company> {
             element = _iterator.next();
         }
         String itemLink = element.attr("href");
-        itemLink = BASE_URL + itemLink.replaceFirst("\\.", "");
+        itemLink = DOMAIN + itemLink.replaceFirst("\\.", "");
         
         try {
             Company company = Company.extractCompany(itemLink);
@@ -64,29 +66,17 @@ public class CrawlEngine implements Iterator<Company> {
 
     private boolean _nextPage() {
         try {
-            URL = _buildURL(pageParam, currentPage++);
+            URL = WebbotUtils.buildParams(BASE_URL, _pageParam, _currentPage++);
             Webbot webbot = new Webbot(URL);
             String htmlData = webbot.crawl(Webbot.METHOD_GET);
 
             Document document = Jsoup.parse(htmlData);
-            itemLinks = document.select("h3 a");
+            _itemLinks = document.select("h3 a");
 
-            _iterator = itemLinks.iterator();
-            return itemLinks.size() > 0;
+            _iterator = _itemLinks.iterator();
+            return _itemLinks.size() > 0;
         } catch (IOException e) {
             return false;
         }
-    }
-    
-    private String _buildURL(Object... params) {
-        StringBuilder sb = new StringBuilder(BASE_URL);
-        if ( params.length > 0 ) {
-            sb.append("?");
-            for (int i = 0; i < params.length; i += 2) {
-                sb.append(params[i]).append("=").append(params[i+1]).append("&");
-            }
-            sb.deleteCharAt(sb.length() - 1); //remove last & symbol
-        }
-        return sb.toString();
     }
 }

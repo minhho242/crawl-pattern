@@ -34,8 +34,8 @@ public class Company {
                     String value = item.extractValue(document);
                     item.setValue(value);
                 }
-            } catch (IllegalAccessException e) {
-
+            } catch (Exception e) {
+                System.out.println("Debug");
             }
         }
         return company;

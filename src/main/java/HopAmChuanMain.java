@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Description
  *
@@ -31,7 +32,7 @@ public class HopAmChuanMain implements Runnable {
 
         int threadNo = _getThreadNo();
 
-        List<Thread> threads = new ArrayList<Thread>();
+        List<Thread> threads = new ArrayList<>();
 
         for (int i = 0; i < threadNo; i++) {
             HopAmChuanMain main = new HopAmChuanMain();
@@ -77,11 +78,10 @@ public class HopAmChuanMain implements Runnable {
                 session.getTransaction().rollback();
                 if ( e instanceof MySQLIntegrityConstraintViolationException || e instanceof ConstraintViolationException) {
                     LOGGER.error("Duplicate song Id {}", songDTO.getSourceSongId());
+                    break;
                 } else {
                     LOGGER.error(e.getMessage(), e);
                 }
-                session.close();
-                session = HibernateUtils.getSessionFactory().openSession();
             }
         }
         session.close();

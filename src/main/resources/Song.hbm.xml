@@ -16,5 +16,8 @@
         <property name="rhythm" type="string"></property>
         <property name="musicSource" type="string" column="music_source"></property>
         <property name="sourceSongId" type="string" column="source_song_id"></property>
+        <property name="type" type="string" column="type"></property>
+        <property name="shortLyric" type="string" column="short_lyric"></property>
+        <property name="firstLetter" type="char" column="first_letter"></property>
     </class>
 </hibernate-mapping>

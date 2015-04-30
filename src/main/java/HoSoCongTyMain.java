@@ -25,8 +25,9 @@ public class HoSoCongTyMain implements Runnable {
     private static Logger LOGGER = LoggerFactory.getLogger(HoSoCongTyMain.class);
     private static CrawlEngine crawlEngine = new CrawlEngine();
 
-    public static void mainTemp(String[] args) throws IOException, IllegalAccessException, InstantiationException {
+    public static void main(String[] args) throws IOException, IllegalAccessException, InstantiationException {
         _loadLog4jConfig();
+
         int threadNo = _getThreadNo();
 
         List<Thread> threads = new ArrayList<Thread>();
@@ -61,14 +62,13 @@ public class HoSoCongTyMain implements Runnable {
     private void _crawl() {
         Session session = HibernateUtils.getSessionFactory().openSession();
         while (crawlEngine.hasNext()) {
-            try {
                 session.beginTransaction();
                 Company comp = crawlEngine.next();
 
                 CompanyDTO transientCompany = new CompanyDTO(comp);
 
                 LOGGER.info(transientCompany.getName());
-
+            try {
                 session.save(transientCompany);
                 session.getTransaction().commit();
             } catch (Throwable e) {
